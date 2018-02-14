@@ -14,4 +14,4 @@ export CLICOLOR=1
 # Aliases
 alias la="ls -a"
 alias ll="ls -l"
-alias config="/usr/bin/git --git-dir=/Users/michelle/.cfg/ --work-tree=/Users/michelle"
+alias config="/usr/bin/git --git-dir=/Users/michelle/.myconf/ --work-tree=/Users/michelle"
