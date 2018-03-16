@@ -12,6 +12,15 @@ endif
 
 let mapleader = ","
 let maplocalleader = "\\"
+let g:netrw_liststyle = 3
+let g:netrw_banner = 0
+" finding files
+set path+=**
+set wildmenu
+
+" ctags
+" create the `tags` file
+command! MakeTags !ctags -R .
 
 "
 " appearance
@@ -19,12 +28,16 @@ let maplocalleader = "\\"
 
 " Status line settings ------- {{{
     set laststatus=2
-    set statusline=%f
+    set statusline=
+    set statusline=\ %F
     set statusline+=%=
-    set statusline+=[%4l/%4L]
+    set statusline+=\ %p%%
+    set statusline+=\ %l:%c
+    set statusline+=\ 
 " }}}
 
 set number
+set relativenumber
 set showmatch
 set shiftwidth=4
 set tabstop=4
@@ -32,16 +45,50 @@ set expandtab
 set hlsearch
 set incsearch
 set cursorline
+set belloff=all
 
 " theme
 set t_Co=256
 set background=dark
-colorscheme test
-syntax on
+syntax enable
+" Base2Tone Dark
+" colorscheme Base2Tone_EveningDark
+" colorscheme Base2Tone_MorningDark
+" colorscheme Base2Tone_SeaDark
+" colorscheme Base2Tone_SpaceDark
+" colorscheme Base2Tone_EarthDark
+ colorscheme Base2Tone_ForestDark
+" colorscheme Base2Tone_DesertDark
+" colorscheme Base2Tone_LakeDark
+" colorscheme Base2Tone_MeadowDark
+" colorscheme Base2Tone_DrawbridgeDark
+" colorscheme Base2Tone_PoolDark
+" colorscheme Base2Tone_HeathDark
+" colorscheme Base2Tone_CaveDark
+
+" Base2Tone Light
+" set background=light
+" colorscheme Base2Tone_EveningLight
+" colorscheme Base2Tone_MorningLight
+" colorscheme Base2Tone_SeaLight
+" colorscheme Base2Tone_SpaceLight
+" colorscheme Base2Tone_EarthLight
+" colorscheme Base2Tone_ForestLight
+" colorscheme Base2Tone_DesertLight
+" colorscheme Base2Tone_LakeLight
+" colorscheme Base2Tone_MeadowLight
+" colorscheme Base2Tone_DrawbridgeLight
+" colorscheme Base2Tone_PoolLight
+" colorscheme Base2Tone_HeathLight
+" colorscheme Base2Tone_CaveLight
 
 " check for autocmd
 if has ("autocmd")
     filetype plugin indent on
+    
+    augroup general_start
+
+    augroup END
     
     "
     " FileType specific autocmds
@@ -49,8 +96,8 @@ if has ("autocmd")
     
     augroup filetype_html
         autocmd!
-        autocmd BufNewFile *.html 0r ~/.vim/html.skel
-        autocmd BufNew,BufRead *.html setlocal nowrap shiftwidth=2 tabstop=2
+        autocmd BufNewFile *.html 0r ~/.vim/skeleton.html
+        autocmd BufNewFile,BufNew,BufRead *.html setlocal nowrap shiftwidth=2 tabstop=2
         autocmd FileType html nnoremap <buffer> <localleader>c I<!-- <esc>A --><esc>
         autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
     augroup END
@@ -107,19 +154,19 @@ endif
     inoremap { {}<left>
     inoremap {<cr> {<cr>}<esc>O
     inoremap [ []<left>
-    inoremap ' ''<left>
-    inoremap " ""<left>
-    noremap! jk <esc>
 " }}}
 
-onoremap in( :<c-u>normal! f(vi)<cr>
+onoremap in( :<c-u>normal! f)vi)<cr>
 onoremap il( :<c-u>normal! F)vi)<cr>
+onoremap in' :<c-u>normal! 2f'vi'<cr>
+onoremap il' :<c-u>normal! 2F'vi'<cr>
+onoremap in" :<c-u>normal! 2f"vi"<cr>
+onoremap il" :<c-u>normal! 2F"vi"<cr>
 
 vnoremap si" di""<esc>P
 vnoremap si' di''<esc>P
 vnoremap si( di()<esc>P
 vnoremap si{ di{}<esc>P
-vnoremap jk <esc>
 
 "
 " abbrevs
